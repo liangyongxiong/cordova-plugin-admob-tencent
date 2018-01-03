@@ -120,4 +120,4 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 
 ## Credits
-https://github.com/apache/cordova-labs/tree/cdvtest
+Empty
