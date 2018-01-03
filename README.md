@@ -5,6 +5,7 @@
 https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 ## Installation
+
     cordova plugin add cordova-plugin-admob-tecent
 
 ## Usage
@@ -20,7 +21,6 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 `animation` : 是否显示动画效果（0-否，1-是）
 
 `align` : 显示位置（top-顶部，bottom-底部）
-
 
     var banner = cordova.TencentAdMob.BannerAd.show({
         app: YOUR_APP_ID,
@@ -49,13 +49,11 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
         console.log('Tencent AdMob banner onLeftApplication');
     });
 
-
 #### 插屏广告（Interstitial）
 
 `gps` : 是否开启GPS（0-否，1-是）
 
 `popup` : 是否使用弹出模式（0-否，1-是），仅针对 Android 平台
-
 
     var interstitial = cordova.TencentAdMob.InterstitialAd.show({
         app: YOUR_APP_ID,
@@ -81,13 +79,11 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
         console.log('Tencent AdMob interstitial onLeftApplication');
     });
 
-
 #### 开屏广告（Splash）
 
 `delay` : 延迟加载时间上限（秒）
 
 `bottom` : 底部填充图片，包括图片路径和填充区域高度（单位：dp）
-
 
     cordova.TencentAdMob.SplashAd.show({
         app: YOUR_APP_ID,
@@ -111,11 +107,9 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
         console.log('Tencent AdMob splash onLeftApplication');
     });
 
-
 #### 原生广告（Native）
 
 `count` : 单次加载广告数量
-
 
     cordova.TencentAdMob.NativeAd.load({
         app: YOUR_APP_ID,
@@ -130,17 +124,13 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
         console.log('Tencent AdMob native onError');
     });
 
-
 ## Credits
 Empty
-
 
 ## Supported Platforms
 + iOS 5.0+
 + Android 2.0+
 
-
 ## License
 This project is licensed under Aapache License 2.0. See LICENSE file.
-
 
