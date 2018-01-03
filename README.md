@@ -4,10 +4,25 @@ A plugin to load ads of Tencent GDT via Javascript
 ## NPM
 https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
-## Install
+## Installation
     cordova plugin add cordova-plugin-admob-tecent
 
 ## Usage
+
+
+#### 横幅广告（Banner）
+
++ `interval` : 刷新间隔（秒）
+
++ `gps` : 是否开启GPS（0-否，1-是）
+
++ `close` : 是否显示关闭按钮（0-否，1-是）
+
++ `animation` : 是否显示动画效果（0-否，1-是）
+
++ `align` : 显示位置（top-顶部，bottom-底部）
+
+
     cordova.TencentAdMob.BannerAd.show({
         app: YOUR_APP_ID,
         position: YOUR_POSITION_ID,
@@ -31,6 +46,13 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
     });
 
 
+#### 插屏广告（Interstitial）
+
++ `gps` : 是否开启GPS（0-否，1-是）
+
++ `popup` : 是否使用弹出模式（0-否，1-是），只针对 Android 平台
+
+
     cordova.TencentAdMob.InterstitialAd.show({
         app: YOUR_APP_ID,
         position: YOUR_POSITION_ID,
@@ -49,6 +71,17 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
     }).addEventListener('onLeftApplication',function(event) {
         console.log('Tencent AdMob interstitial onLeftApplication');
     });
+
+
+#### 开屏广告（Splash）
+
++ `delay` : 延迟加载时间上限（秒）
+
++ `bottom` : 底部填充图片
+
+    + `image` : 图片路径
+
+    + `height` : 填充区域高度（单位：dp）
 
 
     cordova.TencentAdMob.SplashAd.show({
