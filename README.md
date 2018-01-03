@@ -122,8 +122,10 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
         position: YOUR_POSITION_ID,
         count: 3,
     }).addEventListener('onSuccess',function(event) {
-        alert(JSON.stringify(event.ads));
         console.log('Tencent AdMob native onSuccess');
+
+        // 显示原生广告内容的 JSON 数据
+        alert(JSON.stringify(event.ads));
     }).addEventListener('onError',function(event) {
         console.log('Tencent AdMob native onError');
     });
