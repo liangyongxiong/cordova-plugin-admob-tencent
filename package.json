@@ -25,13 +25,13 @@
     "cordova-android",
     "cordova-ios"
   ],
-  "homepage": "https://github.com/apache/cordova-plugin-admob-tencent#readme",
+  "homepage": "https://github.com/liangyongxiong/cordova-plugin-admob-tencent#readme",
   "bugs": {
     "url": "https://issues.apache.org/jira/browse/CB"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apache/cordova-plugin-admob-tencent.git"
+    "url": "git+https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git"
   },
   "deprecated": false
 }
