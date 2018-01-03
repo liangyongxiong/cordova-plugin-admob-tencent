@@ -10,6 +10,20 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 ## Usage
 
+#### 官方SDK
+
++ Android标准版
+
+http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_Android_SDK.zip
+
++ Android X5内核加强版
+
+http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_TBS_Android_SDK.zip
+
++ iOS标准版
+
+http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip
+
 #### 横幅广告（Banner）
 
 `interval` : 刷新间隔（秒）
