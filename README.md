@@ -54,7 +54,7 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 `gps` : 是否开启GPS（0-否，1-是）
 
-`popup` : 是否使用弹出模式（0-否，1-是），只针对 Android 平台
+`popup` : 是否使用弹出模式（0-否，1-是），仅针对 Android 平台
 
 
     var interstitial = cordova.TencentAdMob.InterstitialAd.show({
@@ -65,7 +65,7 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
     }).addEventListener('onSuccess',function(event) {
         console.log('Tencent AdMob interstitial onSuccess');
 
-        // 5秒后自动关闭（只对 popup = 1 的插屏广告有效）
+        // 5秒后自动关闭（仅针对 popup = 1 的插屏广告有效）
         setTimeout(function() {
             interstitial.hide();
         }, 1000*5);
