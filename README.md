@@ -132,4 +132,15 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 
 ## Credits
-暂无
+Empty
+
+
+## Supported Platforms
++ iOS 5.0+
++ Android 2.0+
+
+
+## License
+This project is licensed under Aapache License 2.0. See LICENSE file.
+
+
