@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-admob-tencent" version="1.0.0">
+
+    <name>Tencent GDT</name>
+    <author>Michael LYX</author>
+    <description>Cordova Tencent GDT Ads Plugin</description>
+    <keywords>cordova,admob,tencent,gdt,ads</keywords>
+    <license>Apache 2.0</license>
+    <repo>https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git</repo>
+    <issue>https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues</issue>
+
+    <js-module name="tencentadmob" src="www/tencentadmob.js">
+         <clobbers target="cordova.TencentAdMob" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="TencentAdMob">
+                <param name="android-package" value="cn.liangyongxiong.cordova.plugin.admob.tencent.TencentAdMob" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
+            <activity android:name="com.qq.e.ads.ADActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+
+            <!-- 声明SDK所需要的组件 -->
+            <service android:name="com.qq.e.comm.DownloadService" android:exported="false"/>
+
+            <!-- targetSDKVersion >= 24时才需要添加这个provider -->
+            <provider android:name="android.support.v4.content.FileProvider" android:authorities="${applicationId}.fileprovider"
+                android:exported="false" android:grantUriPermissions="true">
+                <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/gdt_file_path" />
+            </provider>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+            <!-- 如果需要精确定位的话请加上此权限 -->
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        </config-file>
+
+        <framework src="com.android.support:support-v4:26.0.0-alpha1" />
+        <resource-file src="src/android/xml/gdt_file_path.xml" target="res/xml/gdt_file_path.xml" />
+
+        <source-file src="src/android/libs/GDTUnionSDK.4.13.555.min.jar" target-dir="libs" />
+
+        <source-file src="src/android/TencentAdMob.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
+        <source-file src="src/android/TencentAdMobBannerFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
+        <source-file src="src/android/TencentAdMobInterstitialAdFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
+        <source-file src="src/android/TencentAdMobSplashAdFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="TencentAdMob">
+                <param name="ios-package" value="TencentAdMob"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/ios/TencentAdMob.m" />
+        <header-file src="src/ios/TencentAdMob.h" />
+
+        <header-file src="src/ios/libs/GDTMobBannerView.h" />
+        <header-file src="src/ios/libs/GDTMobInterstitial.h" />
+        <header-file src="src/ios/libs/GDTNativeAd.h" />
+        <header-file src="src/ios/libs/GDTNativeExpressAd.h" />
+        <header-file src="src/ios/libs/GDTNativeExpressAdView.h" />
+        <header-file src="src/ios/libs/GDTSDKConfig.h" />
+        <header-file src="src/ios/libs/GDTSplashAd.h" />
+        <header-file src="src/ios/libs/GDTTrack.h" />
+
+        <source-file src="src/ios/libs/libGDTMobSDK.a" framework="true" />
+
+        <framework src="CoreLocation.framework" />
+        <framework src="QuartzCore.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="Security.framework" />
+        <framework src="StoreKit.framework" />
+        <framework src="libz.tbd" />
+    </platform>
+
+</plugin>
