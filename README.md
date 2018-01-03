@@ -22,7 +22,7 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 `align` : 显示位置（top-顶部，bottom-底部）
 
 
-    cordova.TencentAdMob.BannerAd.show({
+    var banner = cordova.TencentAdMob.BannerAd.show({
         app: YOUR_APP_ID,
         position: YOUR_POSITION_ID,
         interval: 30,
@@ -32,6 +32,11 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
         align: 'bottom'
     }).addEventListener('onSuccess',function(event) {
         console.log('Tencent AdMob banner onSuccess');
+
+        // 5秒后自动关闭
+        setTimeout(function() {
+            banner.hide();
+        }, 1000*5);
     }).addEventListener('onError',function(event) {
         console.log('Tencent AdMob banner onError');
     }).addEventListener('onClose',function(event) {
@@ -52,13 +57,18 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 `popup` : 是否使用弹出模式（0-否，1-是），只针对 Android 平台
 
 
-    cordova.TencentAdMob.InterstitialAd.show({
+    var interstitial = cordova.TencentAdMob.InterstitialAd.show({
         app: YOUR_APP_ID,
         position: YOUR_POSITION_ID,
         gps: 0,
         popup: 1
     }).addEventListener('onSuccess',function(event) {
         console.log('Tencent AdMob interstitial onSuccess');
+
+        // 5秒后自动关闭（只对 popup = 1 的插屏广告有效）
+        setTimeout(function() {
+            interstitial.hide();
+        }, 1000*5);
     }).addEventListener('onError',function(event) {
         console.log('Tencent AdMob interstitial onError');
     }).addEventListener('onClose',function(event) {
@@ -120,4 +130,4 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 
 ## Credits
-Empty
+暂无
