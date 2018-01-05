@@ -1,6 +1,20 @@
 ## Purpose
 通过 Javascript 调用腾讯广点通（GDT）SDK 接口，渲染广告内容
 
+## SDK
+
+#### Android 标准版
+
+http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_Android_SDK.zip
+
+#### Android X5 内核加强版
+
+http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_TBS_Android_SDK.zip
+
+#### iOS 标准版
+
+http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip
+
 ## NPM
 https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
@@ -8,21 +22,15 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
     cordova plugin add cordova-plugin-admob-tecent
 
+或
+
+    cordova plugin add https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git
+
 ## Usage
 
-#### 官方SDK
+`YOUR_APP_ID` : 应用媒体ID
 
-+ Android标准版
-
-http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_Android_SDK.zip
-
-+ Android X5内核加强版
-
-http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_TBS_Android_SDK.zip
-
-+ iOS标准版
-
-http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip
+`YOUR_POSITION_ID` : 广告位ID
 
 #### 横幅广告（Banner）
 
@@ -77,7 +85,7 @@ http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip
     }).addEventListener('onSuccess',function(event) {
         console.log('Tencent AdMob interstitial onSuccess');
 
-        // 5秒后自动关闭（仅针对 popup = 1 的插屏广告有效）
+        // 5秒后自动关闭（仅针对 Android 平台下 popup = 1 的插屏广告有效）
         setTimeout(function() {
             interstitial.hide();
         }, 1000*5);
@@ -97,7 +105,7 @@ http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip
 
 `delay` : 延迟加载时间上限（秒）
 
-`bottom` : 底部填充图片，包括图片路径和填充区域高度（单位：dp）
+`bottom` : 底部填充区域，包括图片路径和填充区域高度（单位：dp）
 
     cordova.TencentAdMob.SplashAd.show({
         app: YOUR_APP_ID,
@@ -132,7 +140,7 @@ http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip
     }).addEventListener('onSuccess',function(event) {
         console.log('Tencent AdMob native onSuccess');
 
-        // 显示原生广告内容的 JSON 数据
+        // 原生广告的 JSON 数据
         alert(JSON.stringify(event.ads));
     }).addEventListener('onError',function(event) {
         console.log('Tencent AdMob native onError');

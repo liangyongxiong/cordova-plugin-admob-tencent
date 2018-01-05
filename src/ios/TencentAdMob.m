@@ -123,7 +123,7 @@
         _interstitialObj = [[GDTMobInterstitial alloc] initWithAppkey:appkey placementId:posId];
         _interstitialObj.delegate = self;
         if ([gps isEqualToString:@"0"]) {
-            _interstitialObj.isGpsOn = YES; //【可选】设置GPS开关
+            _interstitialObj.isGpsOn = NO; //【可选】设置GPS开关
         }else if ([gps isEqualToString:@"1"]){
             _interstitialObj.isGpsOn = YES;
         }
