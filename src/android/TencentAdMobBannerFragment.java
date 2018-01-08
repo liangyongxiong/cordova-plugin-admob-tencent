@@ -316,10 +316,10 @@ public class TencentAdMobBannerFragment extends DialogFragment {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, getResources().getDisplayMetrics());
     }
 
-    public CallbackContext scallbackContext;
+    public CallbackContext callbackContext;
 
     public void setCallbackContext(CallbackContext callbackContext) {
-        this.scallbackContext = callbackContext;
+        this.callbackContext = callbackContext;
     }
 
     public void sendUpdate(String content, boolean keepCallback) {
@@ -338,6 +338,6 @@ public class TencentAdMobBannerFragment extends DialogFragment {
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         PluginResult result = new PluginResult(status, obj);
         result.setKeepCallback(keepCallback);
-        scallbackContext.sendPluginResult(result);
+        callbackContext.sendPluginResult(result);
     }
 }

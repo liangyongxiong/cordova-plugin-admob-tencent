@@ -27,10 +27,10 @@ public class TencentAdMob extends CordovaPlugin {
 
     public static final String TAG = TencentAdMob.class.getSimpleName();
     private RelativeLayout bottomView, contentView;
-    private TencentAdMobBannerFragment gdtBannerFragment;
     private static final int BOTTOM_VIEW_ID = 0x1;
 
-    private TencentAdMobInterstitialAdFragment gdtInterstitialAdFragment;
+    private TencentAdMobBannerFragment bannerFragment;
+    private TencentAdMobInterstitialAdFragment interstitialAdFragment;
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
@@ -43,8 +43,6 @@ public class TencentAdMob extends CordovaPlugin {
             final String position = object.getString("position");
             final int close = object.getInt("close");
             final int interval = object.getInt("interval");
-            final int gps = object.getInt("gps");
-            final int animation = object.getInt("animation");
             final String align = object.optString("align");
 
             activity.runOnUiThread(new Runnable() {
@@ -71,9 +69,9 @@ public class TencentAdMob extends CordovaPlugin {
 
                     FragmentManager fm = activity.getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    gdtBannerFragment = TencentAdMobBannerFragment.newInstance(app, position, close, interval);
-                    gdtBannerFragment.setCallbackContext(callbackContext);
-                    ft.replace(BOTTOM_VIEW_ID, gdtBannerFragment);
+                    bannerFragment = TencentAdMobBannerFragment.newInstance(app, position, close, interval);
+                    bannerFragment.setCallbackContext(callbackContext);
+                    ft.replace(BOTTOM_VIEW_ID, bannerFragment);
                     ft.commitAllowingStateLoss();
                 }
             });
@@ -82,11 +80,11 @@ public class TencentAdMob extends CordovaPlugin {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (gdtBannerFragment != null) {
-                        sendUpdate(gdtBannerFragment.scallbackContext, "onClose", false);
+                    if (bannerFragment != null) {
+                        sendUpdate(bannerFragment.callbackContext, "onClose", false);
                         FragmentManager fm = activity.getFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();
-                        ft.remove(gdtBannerFragment);
+                        ft.remove(bannerFragment);
                         ft.commitAllowingStateLoss();
                     }
                     ViewGroup group = activity.findViewById(android.R.id.content);
@@ -108,9 +106,9 @@ public class TencentAdMob extends CordovaPlugin {
                 public void run() {
                     FragmentManager fm = activity.getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    gdtInterstitialAdFragment = TencentAdMobInterstitialAdFragment.newInstance(app, position, popup);
-                    gdtInterstitialAdFragment.setCallbackContext(callbackContext);
-                    ft.add(gdtInterstitialAdFragment, TencentAdMobInterstitialAdFragment.class.getSimpleName());
+                    interstitialAdFragment = TencentAdMobInterstitialAdFragment.newInstance(app, position, popup);
+                    interstitialAdFragment.setCallbackContext(callbackContext);
+                    ft.add(interstitialAdFragment, TencentAdMobInterstitialAdFragment.class.getSimpleName());
                     ft.commitAllowingStateLoss();
                 }
             });
@@ -270,23 +268,23 @@ public class TencentAdMob extends CordovaPlugin {
         return true;
     }
 
-    public void sendUpdate(CallbackContext scallbackContext, String type, boolean keepCallback) {
+    public void sendUpdate(CallbackContext callbackContext, String type, boolean keepCallback) {
         try {
             JSONObject obj = new JSONObject();
             obj.put("type", type);
-            sendUpdate(scallbackContext, obj, keepCallback);
+            sendUpdate(callbackContext, obj, keepCallback);
         } catch (Exception e) {
         }
     }
 
-    private void sendUpdate(CallbackContext scallbackContext, JSONObject obj, boolean keepCallback) {
-        sendUpdate(scallbackContext, obj, keepCallback, PluginResult.Status.OK);
+    private void sendUpdate(CallbackContext callbackContext, JSONObject obj, boolean keepCallback) {
+        sendUpdate(callbackContext, obj, keepCallback, PluginResult.Status.OK);
     }
 
-    private void sendUpdate(CallbackContext scallbackContext, JSONObject obj, boolean keepCallback, PluginResult.Status status) {
+    private void sendUpdate(CallbackContext callbackContext, JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         PluginResult result = new PluginResult(status, obj);
         result.setKeepCallback(keepCallback);
-        scallbackContext.sendPluginResult(result);
+        callbackContext.sendPluginResult(result);
     }
 
 }

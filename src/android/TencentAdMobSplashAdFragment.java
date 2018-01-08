@@ -60,30 +60,28 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
     public static final String APPID = "APPID";//应用id
     public static final String SplashPosID = "SplashPosID";
     public static final String DELAY = "delay";
-    public static final String BOTTOM = "bottom";
+    public static final String IMAGE = "image";
     public static final String HEIGHT = "height";
     private String appId = "";//应用id
     private String splashPosID = "";
     private int delay;
-    private String bottom;
+    private String image;
     private int height;
 
     private SplashAD splashAD;
     private ViewGroup container;
     private TextView skipView;
     private ImageView bgImageView;
-    private static final String SKIP_TEXT = " 跳过 %d 秒";
+    private static final String SKIP_TEXT = "跳过 %d 秒";
     private Context mContext;
 
-    public static TencentAdMobSplashAdFragment newInstance(String appid, String bannerPosID, int delay,
-                                                  String bottom, int height
-    ) {
+    public static TencentAdMobSplashAdFragment newInstance(String appid, String bannerPosID, int delay, String image, int height) {
         TencentAdMobSplashAdFragment fragment = new TencentAdMobSplashAdFragment();
         Bundle bundle = new Bundle();
         bundle.putString(APPID, appid);
         bundle.putString(SplashPosID, bannerPosID);
         bundle.putInt(DELAY, delay);
-        bundle.putString(BOTTOM, bottom);
+        bundle.putString(IMAGE, image);
         bundle.putInt(HEIGHT, height);
         fragment.setArguments(bundle);
         return fragment;
@@ -96,7 +94,7 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
         appId = getArguments().getString(APPID);
         splashPosID = getArguments().getString(SplashPosID);
         delay = getArguments().getInt(DELAY);
-        bottom = getArguments().getString(BOTTOM);
+        image = getArguments().getString(IMAGE);
         height = getArguments().getInt(HEIGHT);
     }
 
@@ -147,12 +145,12 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
         this.container.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
         linearLayout.addView(this.container);
 
-        ImageView logoImageView = new ImageView(mContext);
-        logoImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        logoImageView.setAdjustViewBounds(true);
-        logoImageView.setImageBitmap(getImageFromAssets(bottom));
-        logoImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(mContext, height)));
-        linearLayout.addView(logoImageView);
+        ImageView bottomImageView = new ImageView(mContext);
+        bottomImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        bottomImageView.setAdjustViewBounds(true);
+        bottomImageView.setImageBitmap(getImageFromAssets(image));
+        bottomImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(mContext, height)));
+        linearLayout.addView(bottomImageView);
 
         //第三部分 计时器
         skipView = new TextView(mContext);
@@ -323,7 +321,7 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
     /**
      * 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费
      */
-    public Bitmap getImageFromAssets(String imageName) {
+    private Bitmap getImageFromAssets(String imageName) {
         AssetManager am = mContext.getAssets();
         InputStream is = null;
         try {
@@ -335,7 +333,7 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
         return BitmapFactory.decodeStream(is);
     }
 
-    public int dp2px(Context context, float dpValue) {
+    private int dp2px(Context context, float dpValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, getResources().getDisplayMetrics());
     }
 
@@ -346,10 +344,10 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
         super.onDestroy();
     }
 
-    public CallbackContext scallbackContext;
+    public CallbackContext callbackContext;
 
     public void setCallbackContext(CallbackContext callbackContext) {
-        this.scallbackContext = callbackContext;
+        this.callbackContext = callbackContext;
     }
 
     public void sendUpdate(String content, boolean keepCallback) {
@@ -368,7 +366,7 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         PluginResult result = new PluginResult(status, obj);
         result.setKeepCallback(keepCallback);
-        scallbackContext.sendPluginResult(result);
+        callbackContext.sendPluginResult(result);
     }
 
 }

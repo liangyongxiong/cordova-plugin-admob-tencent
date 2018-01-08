@@ -214,7 +214,6 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
         return true;
     }
 
-
     private InterstitialAD getIAD() {
         if (iad == null) {
             iad = new InterstitialAD((Activity) mContext, appId, interteristalPosID);
@@ -222,7 +221,7 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
         return iad;
     }
 
-    public void showAD() {
+    private void showAD() {
         getIAD().setADListener(new AbstractInterstitialADListener() {
 
             @Override
@@ -251,7 +250,7 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
         iad.loadAD();
     }
 
-    public void showAsPopup() {
+    private void showAsPopup() {
         getIAD().setADListener(new AbstractInterstitialADListener() {
 
             @Override
@@ -292,7 +291,7 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
         iad.loadAD();
     }
 
-    public void doCloseBanner() {
+    private void doCloseBanner() {
         if (iad != null) {
             iad.closePopupWindow();
         }
@@ -307,10 +306,10 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
         }
     }
 
-    public CallbackContext scallbackContext;
+    public CallbackContext callbackContext;
 
     public void setCallbackContext(CallbackContext callbackContext) {
-        this.scallbackContext = callbackContext;
+        this.callbackContext = callbackContext;
     }
 
     public void sendUpdate(String content, boolean keepCallback) {
@@ -329,7 +328,7 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         PluginResult result = new PluginResult(status, obj);
         result.setKeepCallback(keepCallback);
-        scallbackContext.sendPluginResult(result);
+        callbackContext.sendPluginResult(result);
     }
 
 }
