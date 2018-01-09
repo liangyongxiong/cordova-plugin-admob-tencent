@@ -160,5 +160,5 @@ Empty
 + Android 2.0+
 
 ## License
-This project is licensed under Aapache License 2.0. See LICENSE file.
+This project is licensed under MIT. See LICENSE file.
 

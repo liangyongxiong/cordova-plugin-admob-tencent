@@ -1,13 +1,13 @@
 {
   "name": "cordova-plugin-admob-tencent",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
     "name": "Michael LYX"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "cordova": {
     "id": "cordova-plugin-admob-tencent",
     "platforms": [
@@ -15,7 +15,7 @@
       "ios"
     ]
   },
-  "description": "Cordova Tencent Mobile Ads Plugin",
+  "description": "Cordova Plugin for Tencent Mobile Ads",
   "keywords": [
     "cordova",
     "plugin",

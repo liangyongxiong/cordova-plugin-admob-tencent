@@ -5,9 +5,9 @@
 
     <name>Tencent GDT</name>
     <author>Michael LYX</author>
-    <description>Cordova Tencent GDT Ads Plugin</description>
+    <description>Cordova Plugin for Tencent GDT Ads</description>
     <keywords>cordova,admob,tencent,gdt,ads</keywords>
-    <license>Apache 2.0</license>
+    <license>MIT</license>
     <repo>https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git</repo>
     <issue>https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues</issue>
 
