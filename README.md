@@ -1,7 +1,12 @@
-## Purpose
+# Tencent Admob for GDT / Cordova Plugin
+
+[![release](https://img.shields.io/badge/release-1.0.11-blue.svg)](https://github.com/liangyongxiong/cordova-plugin-admob-tencent/releases)
+[![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20Android-lightgrey.svg)](https://github.com/liangyongxiong/cordova-plugin-admob-tencent)
+[![qq](https://img.shields.io/badge/qq-331338391-blue.svg)](http://wpa.qq.com/msgrd?v=3&uin=331338391&menu=yes)
+
 通过 Javascript 调用腾讯广点通（GDT）SDK 接口，渲染广告内容
 
-## SDK
+官方 SDK 下载：
 
 + [Android 标准版](http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/android/release/GDT_Android_SDK.zip)
 
@@ -14,13 +19,15 @@ https://www.npmjs.com/package/cordova-plugin-admob-tencent
 
 ## Installation
 
-```sh
+通过 Cordova Plugins 安装
+
+```shell
 $ cordova plugin add cordova-plugin-admob-tecent
 ```
 
-或者
+通过 URL 安装
 
-```sh
+```shell
 cordova plugin add https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git
 ```
 
@@ -152,13 +159,16 @@ cordova.TencentAdMob.NativeAd.load({
 });
 ```
 
-## Credits
+## FAQ
 Empty
 
-## Supported Platforms
-+ iOS 5.0+
-+ Android 2.0+
+## Support
++ [ＱＱ](http://wpa.qq.com/msgrd?v=3&uin=331338391&menu=yes)
++ [邮箱](mailto:331338391@qq.com)
+
+## Contribute
+Please contribute! Look at the [issues](https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues).
 
 ## License
-This project is licensed under MIT. See LICENSE file.
+This project is licensed under [MIT](https://github.com/liangyongxiong/cordova-plugin-admob-tencent/blob/master/LICENSE).
 
