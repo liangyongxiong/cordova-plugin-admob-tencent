@@ -9,9 +9,6 @@
     <keywords>cordova,admob,tencent,gdt,ads</keywords>
     <license>MIT</license>
 
-    <repo>https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git</repo>
-    <issue>https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues</issue>
-
     <js-module name="tencentadmob" src="www/tencentadmob.js">
          <clobbers target="cordova.TencentAdMob" />
     </js-module>
