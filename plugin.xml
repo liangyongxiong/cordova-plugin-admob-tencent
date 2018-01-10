@@ -1,13 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cordova-plugin-admob-tencent" version="1.0.11">
+    id="cordova-plugin-admob-tencent" version="1.0.14">
 
     <name>Tencent AdMob</name>
     <description>Cordova Plugin for Tencent GDT Ads</description>
     <author>Michael LYX</author>
     <keywords>cordova,admob,tencent,gdt,ads</keywords>
     <license>MIT</license>
+
+    <repo>https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git</repo>
+    <issue>https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues</issue>
 
     <js-module name="tencentadmob" src="www/tencentadmob.js">
          <clobbers target="cordova.TencentAdMob" />

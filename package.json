@@ -1,16 +1,7 @@
 {
     "name": "cordova-plugin-admob-tencent",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "description": "Cordova Plugin for Tencent Mobile Ads",
-    "author": "Michael LYX",
-    "license": "MIT",
-    "cordova": {
-        "id": "cordova-plugin-admob-tencent",
-        "platforms": [
-            "android",
-            "ios"
-        ]
-    },
     "keywords": [
         "cordova",
         "plugin",
@@ -20,13 +11,33 @@
         "cordova-android",
         "cordova-ios"
     ],
+    "license": "MIT",
+    "author": {
+        "name": "Michael LYX",
+        "email": "me@liangyongxiong.cn",
+        "url": "http://liangyongxiong.cn"
+    },
+    "contributors": [
+        { "name": "Wang Qian", "email": "907894147@qq.com" },
+        { "name": "Li YiChun", "email": "522347893@qq.com" }
+    ],
+    "dependencies": {},
+    "devDependencies": {},
+    "cordova": {
+        "id": "cordova-plugin-admob-tencent",
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "homepage": "https://github.com/liangyongxiong/cordova-plugin-admob-tencent#readme",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git"
     },
-    "homepage": "https://github.com/liangyongxiong/cordova-plugin-admob-tencent#readme",
     "bugs": {
-        "url": "https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues"
+        "url": "https://github.com/liangyongxiong/cordova-plugin-admob-tencent/issues",
+        "email": "me@liangyongxiong.cn"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
