@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cordova-plugin-admob-tencent" version="1.0.14">
+    id="cordova-plugin-admob-tencent" version="1.0.15">
 
     <name>Tencent AdMob</name>
     <description>Cordova Plugin for Tencent GDT Ads</description>
@@ -53,12 +53,12 @@
         <framework src="com.android.support:support-v4:26.0.0-alpha1" />
         <resource-file src="src/android/xml/gdt_file_path.xml" target="res/xml/gdt_file_path.xml" />
 
-        <source-file src="src/android/libs/GDTUnionSDK.4.13.555.min.jar" target-dir="libs" />
+        <source-file src="src/android/libs/GDTUnionSDK.4.15.559.min.jar" target-dir="libs" />
 
         <source-file src="src/android/TencentAdMob.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
         <source-file src="src/android/TencentAdMobBannerFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
-        <source-file src="src/android/TencentAdMobInterstitialAdFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
-        <source-file src="src/android/TencentAdMobSplashAdFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
+        <source-file src="src/android/TencentAdMobInterstitialFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
+        <source-file src="src/android/TencentAdMobSplashFragment.java" target-dir="src/cn/liangyongxiong/cordova/plugin/admob/tencent" />
     </platform>
 
     <!-- ios -->

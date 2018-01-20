@@ -40,7 +40,7 @@ import java.util.List;
  * Created by shion on 2017/12/15.
  */
 
-public class TencentAdMobInterstitialAdFragment extends DialogFragment {
+public class TencentAdMobInterstitialFragment extends DialogFragment {
     public static final String APPID = "APPID";//应用id
     public static final String InterteristalPosID = "InterteristalPosID";
     public static final String POPUP = "popup";
@@ -50,8 +50,8 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
     private Context mContext;
     InterstitialAD iad;
 
-    public static TencentAdMobInterstitialAdFragment newInstance(String appid, String bannerPosID, int popup) {
-        TencentAdMobInterstitialAdFragment fragment = new TencentAdMobInterstitialAdFragment();
+    public static TencentAdMobInterstitialFragment newInstance(String appid, String bannerPosID, int popup) {
+        TencentAdMobInterstitialFragment fragment = new TencentAdMobInterstitialFragment();
         Bundle bundle = new Bundle();
         bundle.putString(APPID, appid);
         bundle.putString(InterteristalPosID, bannerPosID);
@@ -226,24 +226,44 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
 
             @Override
             public void onNoAD(AdError error) {
-                sendUpdate("onError", false);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onError");
+                    obj.put("code", error.getErrorCode());
+                    obj.put("msg", error.getErrorMsg());
+                    sendUpdate(obj, false);
+                } catch (Exception e) {
+                }
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.remove(TencentAdMobInterstitialAdFragment.this);
+                ft.remove(TencentAdMobInterstitialFragment.this);
                 ft.commitAllowingStateLoss();
             }
 
             @Override
             public void onADReceive() {
-                sendUpdate("onSuccess", true);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onSuccess");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 iad.show();
             }
 
             @Override
             public void onADClosed() {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onClose");
+                    sendUpdate(obj, false);
+                } catch (Exception e) {
+                }
+
                 super.onADClosed();
-                sendUpdate("onClose", false);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.remove(TencentAdMobInterstitialAdFragment.this);
+                ft.remove(TencentAdMobInterstitialFragment.this);
                 ft.commitAllowingStateLoss();
             }
         });
@@ -255,36 +275,69 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
 
             @Override
             public void onNoAD(AdError error) {
-                sendUpdate("onError", false);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onError");
+                    obj.put("code", error.getErrorCode());
+                    obj.put("msg", error.getErrorMsg());
+                    sendUpdate(obj, false);
+                } catch (Exception e) {
+                }
+
                 doCloseBanner();
-                TencentAdMobInterstitialAdFragment.this.dismissAllowingStateLoss();
+                TencentAdMobInterstitialFragment.this.dismissAllowingStateLoss();
             }
 
             @Override
             public void onADReceive() {
-                sendUpdate("onSuccess", true);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onSuccess");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 iad.showAsPopupWindow();
             }
 
             @Override
             public void onADClosed() {
                 super.onADClosed();
-                sendUpdate("onClose", false);
+
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onClose");
+                    sendUpdate(obj, false);
+                } catch (Exception e) {
+                }
+
                 doCloseBanner();
-                TencentAdMobInterstitialAdFragment.this.dismissAllowingStateLoss();
+                TencentAdMobInterstitialFragment.this.dismissAllowingStateLoss();
             }
 
 
             @Override
             public void onADClicked() {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onClick");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 super.onADClicked();
-                sendUpdate("onClick", true);
             }
 
             @Override
             public void onADLeftApplication() {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onLeftApplication");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 super.onADLeftApplication();
-                sendUpdate("onLeftApplication", true);
             }
 
         });
@@ -310,15 +363,6 @@ public class TencentAdMobInterstitialAdFragment extends DialogFragment {
 
     public void setCallbackContext(CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
-    }
-
-    public void sendUpdate(String content, boolean keepCallback) {
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put("type", content);
-            sendUpdate(obj, keepCallback);
-        } catch (Exception e) {
-        }
     }
 
     private void sendUpdate(JSONObject obj, boolean keepCallback) {

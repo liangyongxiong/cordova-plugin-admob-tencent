@@ -95,6 +95,7 @@ public class TencentAdMobBannerFragment extends DialogFragment {
             lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
             lp.gravity = Gravity.BOTTOM;
         }
+
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -105,9 +106,7 @@ public class TencentAdMobBannerFragment extends DialogFragment {
             }
         });
 
-
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
@@ -253,37 +252,72 @@ public class TencentAdMobBannerFragment extends DialogFragment {
 
             @Override
             public void onNoAD(AdError error) {
-                sendUpdate("onError", false);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onError");
+                    obj.put("code", error.getErrorCode());
+                    obj.put("msg", error.getErrorMsg());
+                    sendUpdate(obj, false);
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onADReceiv() {
-                sendUpdate("onSuccess", true);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onSuccess");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onADClosed() {
-                super.onADClosed();
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onClose");
+                    sendUpdate(obj, false);
+                } catch (Exception e) {
+                }
 
-                sendUpdate("onClose", false);
+                super.onADClosed();
             }
 
             @Override
             public void onADClicked() {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onClick");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 super.onADClicked();
-                sendUpdate("onClick", true);
             }
 
             @Override
             public void onADLeftApplication() {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onLeftApplication");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 super.onADLeftApplication();
-                sendUpdate("onLeftApplication", true);
             }
 
             @Override
             public void onADOpenOverlay() {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", "onOpenOverlay");
+                    sendUpdate(obj, true);
+                } catch (Exception e) {
+                }
+
                 super.onADOpenOverlay();
-                sendUpdate("onOpenOverlay", true);
             }
         });
         bannerContainer.addView(bv);
@@ -320,15 +354,6 @@ public class TencentAdMobBannerFragment extends DialogFragment {
 
     public void setCallbackContext(CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
-    }
-
-    public void sendUpdate(String content, boolean keepCallback) {
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put("type", content);
-            sendUpdate(obj, keepCallback);
-        } catch (Exception e) {
-        }
     }
 
     private void sendUpdate(JSONObject obj, boolean keepCallback) {

@@ -56,7 +56,7 @@ import java.util.Locale;
  * Created by shion on 2017/12/15.
  */
 
-public class TencentAdMobSplashAdFragment extends DialogFragment implements SplashADListener {
+public class TencentAdMobSplashFragment extends DialogFragment implements SplashADListener {
     public static final String APPID = "APPID";//应用id
     public static final String SplashPosID = "SplashPosID";
     public static final String DELAY = "delay";
@@ -75,8 +75,8 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
     private static final String SKIP_TEXT = "跳过 %d 秒";
     private Context mContext;
 
-    public static TencentAdMobSplashAdFragment newInstance(String appid, String bannerPosID, int delay, String image, int height) {
-        TencentAdMobSplashAdFragment fragment = new TencentAdMobSplashAdFragment();
+    public static TencentAdMobSplashFragment newInstance(String appid, String bannerPosID, int delay, String image, int height) {
+        TencentAdMobSplashFragment fragment = new TencentAdMobSplashFragment();
         Bundle bundle = new Bundle();
         bundle.putString(APPID, appid);
         bundle.putString(SplashPosID, bannerPosID);
@@ -271,7 +271,13 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
 
     @Override
     public void onADPresent() {
-        sendUpdate("onSuccess", true);
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("type", "onSuccess");
+            sendUpdate(obj, true);
+        } catch (Exception e) {
+        }
+
         TranslateAnimation t3 = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, -1, Animation.RELATIVE_TO_SELF, 0);
@@ -284,7 +290,12 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
 
     @Override
     public void onADClicked() {
-        sendUpdate("onClick", true);
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("type", "onClick");
+            sendUpdate(obj, true);
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -295,20 +306,41 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
      */
     @Override
     public void onADTick(long millisUntilFinished) {
-        sendUpdate("onTick", true);
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("type", "onTick");
+            obj.put("milliseconds", millisUntilFinished);
+            sendUpdate(obj, true);
+        } catch (Exception e) {
+        }
+
         skipView.setVisibility(View.VISIBLE);
         skipView.setText(String.format(Locale.CHINA, SKIP_TEXT, Math.round(millisUntilFinished / 1000f)));
     }
 
     @Override
     public void onADDismissed() {
-        sendUpdate("onClose", false);
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("type", "onClose");
+            sendUpdate(obj, false);
+        } catch (Exception e) {
+        }
+
         dismissAllowingStateLoss();
     }
 
     @Override
     public void onNoAD(AdError error) {
-        sendUpdate("onError", false);
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("type", "onError");
+            obj.put("code", error.getErrorCode());
+            obj.put("msg", error.getErrorMsg());
+            sendUpdate(obj, false);
+        } catch (Exception e) {
+        }
+
         /** 如果加载广告失败，则直接跳转 */
         this.dismissAllowingStateLoss();
     }
@@ -348,15 +380,6 @@ public class TencentAdMobSplashAdFragment extends DialogFragment implements Spla
 
     public void setCallbackContext(CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
-    }
-
-    public void sendUpdate(String content, boolean keepCallback) {
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put("type", content);
-            sendUpdate(obj, keepCallback);
-        } catch (Exception e) {
-        }
     }
 
     private void sendUpdate(JSONObject obj, boolean keepCallback) {

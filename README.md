@@ -28,7 +28,7 @@ $ cordova plugin add cordova-plugin-admob-tecent
 通过 URL 安装
 
 ```shell
-cordova plugin add https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git
+$ cordova plugin add https://github.com/liangyongxiong/cordova-plugin-admob-tencent.git
 ```
 
 ## Usage
@@ -67,6 +67,7 @@ var banner = cordova.TencentAdMob.BannerAd.show({
     }, 1000*5);
 }).addEventListener('onError', function(event) {
     console.log('Tencent AdMob banner onError');
+    console.error(event.msg);
 }).addEventListener('onClose', function(event) {
     console.log('Tencent AdMob banner onClose');
 }).addEventListener('onClick', function(event) {
@@ -99,6 +100,7 @@ var interstitial = cordova.TencentAdMob.InterstitialAd.show({
     }, 1000*5);
 }).addEventListener('onError', function(event) {
     console.log('Tencent AdMob interstitial onError');
+    console.error(event.msg);
 }).addEventListener('onClose', function(event) {
     console.log('Tencent AdMob interstitial onClose');
 }).addEventListener('onClick', function(event) {
@@ -129,12 +131,14 @@ cordova.TencentAdMob.SplashAd.show({
     console.log('Tencent AdMob splash onSuccess');
 }).addEventListener('onError', function(event) {
     console.log('Tencent AdMob splash onError');
+    console.error(event.msg);
 }).addEventListener('onClose', function(event) {
     console.log('Tencent AdMob splash onClose');
 }).addEventListener('onClick', function(event) {
     console.log('Tencent AdMob splash onClick');
 }).addEventListener('onTick', function(event) {
     console.log('Tencent AdMob splash onTick');
+    console.log('Milliseconds Until Finished : ' + event.milliseconds);
 }).addEventListener('onLeftApplication', function(event) {
     console.log('Tencent AdMob splash onLeftApplication');
 });

@@ -30,7 +30,7 @@ public class TencentAdMob extends CordovaPlugin {
     private static final int BOTTOM_VIEW_ID = 0x1;
 
     private TencentAdMobBannerFragment bannerFragment;
-    private TencentAdMobInterstitialAdFragment interstitialAdFragment;
+    private TencentAdMobInterstitialFragment interstitialFragment;
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
@@ -81,7 +81,13 @@ public class TencentAdMob extends CordovaPlugin {
                 @Override
                 public void run() {
                     if (bannerFragment != null) {
-                        sendUpdate(bannerFragment.callbackContext, "onClose", false);
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("type", "onClose");
+                            sendUpdate(bannerFragment.callbackContext, obj, false);
+                        } catch (Exception e) {
+                        }
+
                         FragmentManager fm = activity.getFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(bannerFragment);
@@ -99,16 +105,16 @@ public class TencentAdMob extends CordovaPlugin {
             JSONObject object = new JSONObject(content);
             final String app = object.getString("app");
             final String position = object.getString("position");
-            final int popup = object.getInt("popup");//0---show 1---showPopup
+            final int popup = object.getInt("popup");   // 0:show | 1:showPopup
 
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     FragmentManager fm = activity.getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    interstitialAdFragment = TencentAdMobInterstitialAdFragment.newInstance(app, position, popup);
-                    interstitialAdFragment.setCallbackContext(callbackContext);
-                    ft.add(interstitialAdFragment, TencentAdMobInterstitialAdFragment.class.getSimpleName());
+                    interstitialFragment = TencentAdMobInterstitialFragment.newInstance(app, position, popup);
+                    interstitialFragment.setCallbackContext(callbackContext);
+                    ft.add(interstitialFragment, TencentAdMobInterstitialFragment.class.getSimpleName());
                     ft.commitAllowingStateLoss();
                 }
             });
@@ -118,8 +124,8 @@ public class TencentAdMob extends CordovaPlugin {
                 @Override
                 public void run() {
                         FragmentManager fm = activity.getFragmentManager();
-                        String tag = TencentAdMobInterstitialAdFragment.class.getSimpleName();
-                        TencentAdMobInterstitialAdFragment fragment = (TencentAdMobInterstitialAdFragment) fm.findFragmentByTag(tag);
+                        String tag = TencentAdMobInterstitialFragment.class.getSimpleName();
+                        TencentAdMobInterstitialFragment fragment = (TencentAdMobInterstitialFragment) fm.findFragmentByTag(tag);
                         if (fragment != null) {
                             fragment.finishFragment();
                         }
@@ -140,9 +146,9 @@ public class TencentAdMob extends CordovaPlugin {
                 public void run() {
                     FragmentManager fm = activity.getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    TencentAdMobSplashAdFragment fragment = TencentAdMobSplashAdFragment.newInstance(app, position, delay, image, height);
+                    TencentAdMobSplashFragment fragment = TencentAdMobSplashFragment.newInstance(app, position, delay, image, height);
                     fragment.setCallbackContext(callbackContext);
-                    ft.add(fragment, TencentAdMobSplashAdFragment.class.getSimpleName());
+                    ft.add(fragment, TencentAdMobSplashFragment.class.getSimpleName());
                     ft.commitAllowingStateLoss();
                 }
             });
@@ -241,8 +247,15 @@ public class TencentAdMob extends CordovaPlugin {
                                         }
 
                                         @Override
-                                        public void onNoAD(AdError adError) {
-                                            sendUpdate(callbackContext, "onError", false);
+                                        public void onNoAD(AdError error) {
+                                            try {
+                                                JSONObject obj = new JSONObject();
+                                                obj.put("type", "onError");
+                                                obj.put("code", error.getErrorCode());
+                                                obj.put("msg", error.getErrorMsg());
+                                                sendUpdate(callbackContext, obj, false);
+                                            } catch (Exception e) {
+                                            }
                                         }
 
                                         @Override
@@ -251,8 +264,15 @@ public class TencentAdMob extends CordovaPlugin {
                                         }
 
                                         @Override
-                                        public void onADError(NativeADDataRef nativeADDataRef, AdError adError) {
-                                            sendUpdate(callbackContext, "onError", false);
+                                        public void onADError(NativeADDataRef nativeADDataRef, AdError error) {
+                                            try {
+                                                JSONObject obj = new JSONObject();
+                                                obj.put("type", "onError");
+                                                obj.put("code", error.getErrorCode());
+                                                obj.put("msg", error.getErrorMsg());
+                                                sendUpdate(callbackContext, obj, false);
+                                            } catch (Exception e) {
+                                            }
                                         }
                                     });
                         }
@@ -266,15 +286,6 @@ public class TencentAdMob extends CordovaPlugin {
             return false;
         }
         return true;
-    }
-
-    public void sendUpdate(CallbackContext callbackContext, String type, boolean keepCallback) {
-        try {
-            JSONObject obj = new JSONObject();
-            obj.put("type", type);
-            sendUpdate(callbackContext, obj, keepCallback);
-        } catch (Exception e) {
-        }
     }
 
     private void sendUpdate(CallbackContext callbackContext, JSONObject obj, boolean keepCallback) {
